@@ -17,6 +17,10 @@ if [ "$1" = "--uninstall" ]; then
             fi
         done
     done
+    if [ -f "$HOME/.config/dosagent.conf" ]; then
+        rm -f "$HOME/.config/dosagent.conf"
+        echo "Removed $HOME/.config/dosagent.conf"
+    fi
     if [ "$found" -eq 0 ]; then
         echo "Nothing to uninstall: no wrapper found for $PROJECT_DIR"
     else
@@ -105,5 +109,60 @@ case ":$PATH:" in
         echo ""
         ;;
 esac
+
+# --- Configure default host/port ---
+
+CONFIG_FILE="$HOME/.config/dosagent.conf"
+WRITE_CONFIG=1
+
+if [ -f "$CONFIG_FILE" ]; then
+    printf "\n%s already exists. Overwrite? [y/N]: " "$CONFIG_FILE"
+    read -r OVERWRITE_CFG
+    case "$OVERWRITE_CFG" in
+        [yY]*) ;;
+        *) WRITE_CONFIG=0 ;;
+    esac
+fi
+
+if [ "$WRITE_CONFIG" -eq 1 ]; then
+    echo ""
+    echo "Configure default connection settings."
+
+    # Prompt for host
+    while true; do
+        printf "Agent host [localhost]: "
+        read -r CFG_HOST
+        CFG_HOST="${CFG_HOST:-localhost}"
+        if [ -z "$CFG_HOST" ] || echo "$CFG_HOST" | grep -q '[[:space:]]'; then
+            echo "ERROR: Host cannot be empty or contain whitespace" >&2
+            continue
+        fi
+        break
+    done
+
+    # Prompt for port
+    while true; do
+        printf "Agent port [10000]: "
+        read -r CFG_PORT
+        CFG_PORT="${CFG_PORT:-10000}"
+        if ! echo "$CFG_PORT" | grep -qE '^[0-9]+$'; then
+            echo "ERROR: Port must be an integer" >&2
+            continue
+        fi
+        if [ "$CFG_PORT" -lt 1 ] || [ "$CFG_PORT" -gt 65535 ]; then
+            echo "ERROR: Port must be between 1 and 65535" >&2
+            continue
+        fi
+        break
+    done
+
+    mkdir -p "$HOME/.config"
+    cat > "$CONFIG_FILE" << CONF
+[agent]
+host = $CFG_HOST
+port = $CFG_PORT
+CONF
+    echo "Wrote $CONFIG_FILE"
+fi
 
 echo "Done. Run '$CMD_NAME' to connect to DOSAGENT."

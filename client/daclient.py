@@ -2,10 +2,13 @@
 """
 da — Interactive shell for DOSAGENT (DOS Remote Agent)
 
-Usage: ./da [host] [port]
+Usage: da [host] [port]
 
 Connects to DOSAGENT.EXE running in a FreeDOS VM and provides an
 interactive REPL for executing DOS commands.
+
+Defaults are read from ~/.config/dosagent.conf if it exists,
+otherwise falls back to localhost:10000. CLI args override both.
 
 Special commands:
     .quit / .exit   - Disconnect and exit
@@ -18,9 +21,35 @@ Special commands:
 """
 
 import argparse
+import configparser
+import os
 import sys
 
 from .agent_client import DosAgent
+
+CONFIG_PATH = os.path.expanduser("~/.config/dosagent.conf")
+
+DEFAULTS = {
+    "host": "localhost",
+    "port": 10000,
+}
+
+
+def load_config():
+    """Load host/port defaults from ~/.config/dosagent.conf if it exists."""
+    config = dict(DEFAULTS)
+    if not os.path.isfile(CONFIG_PATH):
+        return config
+    cp = configparser.ConfigParser()
+    cp.read(CONFIG_PATH)
+    if cp.has_option("agent", "host"):
+        config["host"] = cp.get("agent", "host")
+    if cp.has_option("agent", "port"):
+        try:
+            config["port"] = cp.getint("agent", "port")
+        except ValueError:
+            pass
+    return config
 
 
 def print_help():
@@ -40,11 +69,12 @@ def print_help():
 
 
 def main():
+    cfg = load_config()
     parser = argparse.ArgumentParser(description="DOSAGENT interactive shell")
-    parser.add_argument("host", nargs="?", default="localhost",
-                        help="Agent host (default: localhost)")
-    parser.add_argument("port", nargs="?", type=int, default=10000,
-                        help="Agent port (default: 10000)")
+    parser.add_argument("host", nargs="?", default=cfg["host"],
+                        help=f"Agent host (default: {cfg['host']})")
+    parser.add_argument("port", nargs="?", type=int, default=cfg["port"],
+                        help=f"Agent port (default: {cfg['port']})")
     parser.add_argument("--timeout", type=float, default=60.0,
                         help="Command timeout in seconds (default: 60)")
     args = parser.parse_args()
