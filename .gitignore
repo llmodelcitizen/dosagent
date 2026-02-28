@@ -7,10 +7,11 @@ __pycache__/
 *.o
 *.exe
 
-# Build/setup libraries and toolchain
-setup/lib/
-setup/watcom/
+# Libraries and toolchain
+scripts/lib/
+scripts/watcom/
 
 # Build output
+agent/bin/
 *.err
 *.map

@@ -5,19 +5,20 @@ WATCOM_DIR = $(%WATCOM)
 
 CC = wcc386
 LD = wlink
-CFLAGS = -bt=dos -mf -3s -ox -zq -w4 -i=$(WATCOM_DIR)/h -i=setup/lib/watt32/inc
+CFLAGS = -bt=dos -mf -3s -ox -zq -w4 -i=$(WATCOM_DIR)/h -i=scripts/lib/watt32/inc
 
-SRCDIR = setup/src
+SRCDIR = agent/src
 OBJS = $(SRCDIR)/main.obj $(SRCDIR)/net.obj $(SRCDIR)/protocol.obj &
        $(SRCDIR)/exec.obj $(SRCDIR)/file.obj $(SRCDIR)/screen.obj &
        $(SRCDIR)/keys.obj
 
-TARGET = dosagent.exe
+BINDIR = agent/bin
+TARGET = $(BINDIR)/dosagent.exe
 
 $(TARGET) : $(OBJS)
     $(LD) name $(TARGET) system dos32a option map option stack=16384 &
         option stub=$(WATCOM_DIR)/binw/dos32a.exe &
-        library setup/lib/watt32/lib/wattcpwf.lib &
+        library scripts/lib/watt32/lib/wattcpwf.lib &
         file {$(OBJS)}
 
 {$(SRCDIR)}.c{$(SRCDIR)}.obj :
