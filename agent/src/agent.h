@@ -33,7 +33,7 @@
 #define TEMP_BATCH      "C:\\TEMP\\ARUN.BAT"
 #define EXEC_CHUNK_SIZE 2048        /* read/send in 2 KB chunks */
 
-/* ── Screen capture (Phase 2) ─────────────────────────────────── */
+/* ── Screen capture ───────────────────────────────────────────── */
 
 #define VGA_ADDR        0xB8000     /* linear address in 32-bit mode */
 #define SCREEN_COLS     80
@@ -41,7 +41,7 @@
 
 /* ── Version ──────────────────────────────────────────────────── */
 
-#define AGENT_VERSION   "0.1.0"
+#define AGENT_VERSION   "0.2.0"
 
 /* ── Agent state ──────────────────────────────────────────────── */
 
@@ -89,11 +89,11 @@ int  exec_command(const char *cmd);
 int  file_download(const char *path);
 int  file_upload(const char *path, const char *data);
 
-/* ── screen.c — VGA text capture (Phase 2 stub) ──────────────── */
+/* ── screen.c — VGA text capture (stub) ──────────────────────── */
 
 int  screen_capture(void);
 
-/* ── keys.c — Keyboard injection (Phase 2 stub) ──────────────── */
+/* ── keys.c — Keyboard injection (stub) ──────────────────────── */
 
 int  keys_type(const char *text);
 

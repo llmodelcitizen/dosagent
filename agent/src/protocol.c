@@ -241,13 +241,13 @@ void proto_handle_line(const char *line)
         return;
     }
 
-    /* ── SCREEN (Phase 2) ─────────────────────────────────── */
+    /* ── SCREEN (stub) ────────────────────────────────────── */
     if (strcmp(cmd, "SCREEN") == 0) {
         screen_capture();
         return;
     }
 
-    /* ── KEYTYPE (Phase 2) ────────────────────────────────── */
+    /* ── KEYTYPE (stub) ───────────────────────────────────── */
     if (strcmp(cmd, "KEYTYPE") == 0) {
         if (*rest == '\0') {
             proto_send_error("KEYTYPE requires text");

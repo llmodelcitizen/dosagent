@@ -1,5 +1,5 @@
 /*
- * screen.c — VGA text buffer capture (Phase 2 stub)
+ * screen.c — VGA text buffer capture (stub)
  *
  * When implemented, reads the 80x25 VGA text buffer at segment 0xB800
  * and sends it as STREAM data. Each cell is 2 bytes: char + attribute.
@@ -11,7 +11,7 @@
 
 int screen_capture(void)
 {
-    /* Phase 2: not yet implemented.
+    /* Not yet implemented.
      *
      * Will do:
      *   unsigned short far *vga = (unsigned short far *)MK_FP(VGA_SEG, 0);
@@ -20,6 +20,6 @@ int screen_capture(void)
      *     send as STREAM line
      *   send END
      */
-    proto_send_error("SCREEN not implemented (Phase 2)");
+    proto_send_error("SCREEN not yet implemented");
     return -1;
 }

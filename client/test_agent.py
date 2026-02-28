@@ -115,7 +115,7 @@ def test_exec_dir(host, port):
 def test_upload_download(host, port):
     """Upload + download — round-trip file write/read"""
     test_content = "Hello from test_agent.py\nLine 2\n"
-    test_path = "C:\\TESTFILE.TXT"
+    test_path = "C:\\TEMP\\TESTFILE.TXT"
 
     agent = DosAgent(host=host, port=port, timeout=10.0)
     try:
