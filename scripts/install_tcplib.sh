@@ -102,7 +102,7 @@ fi
 # Check OpenWatcom
 if [ ! -x "$WATCOM/binl/$W32_CC" ]; then
     echo "ERROR: OpenWatcom $W32_CC not found at $WATCOM" >&2
-    echo "Run: bash dosagent/install_compiler.sh" >&2
+    echo "Run: bash scripts/install_compiler.sh" >&2
     exit 1
 fi
 

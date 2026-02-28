@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install OpenWatcom v2 portable to setup/watcom/
+# Install OpenWatcom v2 portable to scripts/watcom/
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
