@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# C build artifacts
+*.obj
+*.o
+*.exe
+
+# Build/setup libraries
+setup/lib/
+
+# Error logs
+*.err
