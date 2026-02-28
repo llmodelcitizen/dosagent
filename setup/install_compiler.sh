@@ -1,8 +1,9 @@
 #!/bin/bash
-# Install OpenWatcom v2 portable to /opt/watcom
+# Install OpenWatcom v2 portable to setup/watcom/
 set -e
 
-WATCOM_DIR="/opt/watcom"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+WATCOM_DIR="$SCRIPT_DIR/watcom"
 ZIP_URL="http://openwatcom.org/ftp/source/ow_portable_v2_stable.zip"
 
 # --- Uninstall ---
@@ -21,7 +22,7 @@ if [ "$1" = "--uninstall" ]; then
     fi
 
     echo "Removing OpenWatcom at $WATCOM_DIR ..."
-    sudo rm -rf "$WATCOM_DIR"
+    rm -rf "$WATCOM_DIR"
     echo "OpenWatcom uninstalled."
     exit 0
 fi
@@ -42,9 +43,8 @@ trap 'rm -f "$TMP_ZIP"' EXIT
 
 curl -L -o "$TMP_ZIP" "$ZIP_URL"
 
-sudo mkdir -p "$WATCOM_DIR"
-sudo unzip -q -o "$TMP_ZIP" -d "$WATCOM_DIR"
-sudo chown -R "$(id -u):$(id -g)" "$WATCOM_DIR"
+mkdir -p "$WATCOM_DIR"
+unzip -q -o "$TMP_ZIP" -d "$WATCOM_DIR"
 
 # Verify
 if [ -x "$WATCOM_DIR/binl/wcl" ]; then

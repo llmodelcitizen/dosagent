@@ -20,7 +20,7 @@ Special commands:
 import argparse
 import sys
 
-from client.agent_client import DosAgent
+from .agent_client import DosAgent
 
 
 def print_help():

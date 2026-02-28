@@ -7,8 +7,10 @@ __pycache__/
 *.o
 *.exe
 
-# Build/setup libraries
+# Build/setup libraries and toolchain
 setup/lib/
+setup/watcom/
 
-# Error logs
+# Build output
 *.err
+*.map

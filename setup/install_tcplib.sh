@@ -17,7 +17,7 @@ done
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WATT32_INC="$SCRIPT_DIR/lib/watt32/inc"
 WATT32_LIB="$SCRIPT_DIR/lib/watt32/lib"
-WATCOM="${WATCOM:-/opt/watcom}"
+WATCOM="${WATCOM:-$SCRIPT_DIR/watcom}"
 
 # --- Build-mode variables ---
 if [ $BUILD_32BIT -eq 1 ]; then
