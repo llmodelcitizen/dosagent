@@ -17,6 +17,10 @@ The agent is built with the OpenWatcom compiler and runs in 32-bit protected mod
 - **SLiRP networking** with port forwarding for TCP port 10000
 - **WSL2 Linux host** with port forwarding for TCP port 10000
 
+<img width="803" height="1605" alt="dosagent1" src="https://github.com/user-attachments/assets/0c5568e2-7996-4c8e-b4b3-d0b73267b6d5" />
+
+<img width="1252" height="1033" alt="dosagent2" src="https://github.com/user-attachments/assets/918dd0d7-24f0-464d-b1a8-a1516e83a395" />
+
 ## Setup
 
 Run the setup script from the project root:
