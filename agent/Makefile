@@ -16,7 +16,7 @@ BINDIR = agent/bin
 TARGET = $(BINDIR)/dosagent.exe
 
 $(TARGET) : $(OBJS)
-    $(LD) name $(TARGET) system dos32a option map option stack=16384 &
+    $(LD) name $(TARGET) system dos32a option map=$(BINDIR)/dosagent.map option stack=16384 &
         option stub=$(WATCOM_DIR)/binw/dos32a.exe &
         library scripts/lib/watt32/lib/wattcpwf.lib &
         file {$(OBJS)}
@@ -33,4 +33,4 @@ $(SRCDIR)/screen.obj : $(SRCDIR)/screen.c $(SRCDIR)/agent.h
 $(SRCDIR)/keys.obj : $(SRCDIR)/keys.c $(SRCDIR)/agent.h
 
 clean : .SYMBOLIC
-    rm -f $(SRCDIR)/*.obj $(TARGET) *.map *.err
+    rm -f $(SRCDIR)/*.obj $(SRCDIR)/*.err $(TARGET) $(BINDIR)/*.map *.err
